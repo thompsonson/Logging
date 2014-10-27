@@ -1,0 +1,18 @@
+{
+  "name": "nwDHTMLX",
+  "main": "index.html",
+  "window": {
+    "icon": "link.png",
+    "toolbar": true,
+    "width": 600,
+    "height": 400,
+    "position": "mouse",
+    "min_width": 800,
+    "min_height": 400,
+    "show" : true
+  },
+  "webkit": {
+    "plugin": true
+  }
+}
+
