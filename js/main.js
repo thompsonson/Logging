@@ -8,13 +8,40 @@ function MetricValue(args) {
  
 function ModelCollection(options){
 	this.db = new PouchDB(options.db || './db');
-	//console.log(db.adapter); // prints either 'idb' or 'websql'
+	this.remoteCouch = ko.observable('http://localhost:5984/logging');
  
 	this.DataArray = ko.observableArray();
+	this.syncState = ko.observable("starting...");
 	this.lastSavedJson = ko.computed(function() {       
 		return JSON.stringify(ko.toJS(this.DataArray, null, 2));  
 	}, this);
 } ;
+
+ModelCollection.prototype.sync = function() {
+	that = this;
+	this.syncState('syncing');
+	var opts = {live: true};
+	this.db.sync(this.remoteCouch(), opts)
+		.on('change', function (info) {
+			// handle change
+			//console.log("change");
+		}).on('complete', function (info) {
+			// handle complete
+			console.log("complete");
+			console.log(info);
+			that.syncState('complete');
+		}).on('uptodate', function (info) {
+			// handle up-to-date
+			console.log("uptodate");
+			console.log(info);
+			that.syncState('uptodate');
+		}).on('error', function (err) {
+			// handle error
+			console.log("err");
+			console.log(err);
+			that.syncState('error');
+		});
+}
  
 ModelCollection.prototype.put = function(object) {
 	that = this;
@@ -54,6 +81,7 @@ ModelCollection.prototype.getAllMetrics = function() {
  
 var model = new ModelCollection({});
 model.getAllMetrics();
+model.sync();
  
 var gui = require('nw.gui');
 win = gui.Window.get();
