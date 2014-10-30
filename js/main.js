@@ -93,6 +93,9 @@ try {
 	//console.log(ex.message);
 }
  
+// layout
+var myLayout = new dhtmlXLayoutObject(document.body, "3J");
+
 var myForm, formData;
 formData = [
 	{type: "settings", position: "label-top", labelWidth: 130, inputWidth: 120},
@@ -111,7 +114,11 @@ formData = [
 	]}
 ];
  
-myForm = new dhtmlXForm("myForm", formData);       
+//myForm = new dhtmlXForm("myForm", formData); 
+myForm = myLayout.cells("a").attachForm(formData);    
+sbObj = myLayout.attachStatusBar({text:"Status bar text here"});
+myLayout.cells("b").attachObject("myTable");  
+myLayout.cells("c").attachObject("debug");  
  
 myForm.attachEvent("onButtonClick", function(id){
 	console.log("button clicked: " + id);
