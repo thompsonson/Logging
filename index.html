@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
     <head>
         <meta charset="utf-8">
@@ -6,17 +7,28 @@
         <meta name="description" content="nwDHTMLX">
         <meta name="author" content="Matthew Thompson">
         <meta name="viewport" content="width=device-width">
-
-        <link rel="stylesheet" type="text/css" href="assets/css/dhtmlx.css"/>    
+ 
+        <link rel="stylesheet" type="text/css" href="assets/css/dhtmlx.css"/>   
     </head>
     <body>
-
-        <div id="myForm" style="height:500px;"></div>
-
+ 
+        <div id="myForm"></div>
+ 
+        <p></p>
+        <p>Details:</p>
+        <hr>
+        <div data-bind="foreach: DataArray">
+ 
+            <p>Date: <span data-bind="text: date"> </span> || Name: <span data-bind="text: name"></span> || Value: <span data-bind="text: value"></span>  </p>
+ 
+        </div>
+ 
+        <textarea data-bind="value: lastSavedJson" rows="10" cols="90" disabled="disabled"> </textarea>
+ 
         <SCRIPT TYPE="text/javascript" src="assets/js/dhtmlx.js"></SCRIPT>
         <SCRIPT TYPE="text/javascript" src="assets/js/pouchdb-3.0.6.min.js"></SCRIPT>
+        <script type='text/javascript' src='assets/js/knockout-3.2.0.js'></script>
         <SCRIPT TYPE="text/javascript" src="js/main.js"></SCRIPT>
     </body>
 </html>
-
-
+ 
